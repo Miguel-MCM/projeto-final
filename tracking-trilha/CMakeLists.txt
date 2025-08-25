@@ -37,6 +37,8 @@ pico_sdk_init()
 
 add_executable(tracking-trilha main.cpp 
     src/drivers/oximeter/MAX3010X.cpp
+    src/drivers/oximeter/algorithm.cpp
+    src/drivers/oximeter/algorithm_by_RF.cpp
 )
 
 pico_set_program_name(tracking-trilha "tracking-trilha")
