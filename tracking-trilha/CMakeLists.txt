@@ -37,8 +37,9 @@ pico_sdk_init()
 
 add_executable(tracking-trilha main.cpp 
     src/drivers/oximeter/MAX3010X.cpp
-    src/drivers/oximeter/algorithm.cpp
     src/drivers/oximeter/algorithm_by_RF.cpp
+    src/sensors/oximeter.cpp
+    src/utils/utils.cpp
 )
 
 pico_set_program_name(tracking-trilha "tracking-trilha")
@@ -58,6 +59,8 @@ target_include_directories(tracking-trilha PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/include
         ${CMAKE_CURRENT_LIST_DIR}/include/drivers
         ${CMAKE_CURRENT_LIST_DIR}/include/drivers/oximeter
+        ${CMAKE_CURRENT_LIST_DIR}/include/sensors
+        ${CMAKE_CURRENT_LIST_DIR}/include/utils
 )
 
 # Add any user requested libraries 
