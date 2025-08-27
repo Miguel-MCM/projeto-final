@@ -95,13 +95,9 @@ void Oximeter::Update() {
       shift_buffer(buffer_temperature, &buffer_size_temperature);
     }
 
-    buffer_spO2[buffer_size_spO2] = n_spo2;
-    buffer_heart_rate[buffer_size_heart_rate] = n_heart_rate;
-    buffer_temperature[buffer_size_temperature] = temperature;
-
-    buffer_size_spO2++;
-    buffer_size_heart_rate++;
-    buffer_size_temperature++;
+    buffer_spO2[buffer_size_spO2++] = n_spo2;
+    buffer_heart_rate[buffer_size_heart_rate++] = n_heart_rate;
+    buffer_temperature[buffer_size_temperature++] = temperature;
   }
 }
 
