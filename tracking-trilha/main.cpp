@@ -5,18 +5,30 @@
 
 #define TICK_PERIOD_MS 1000 // ms
 
+typedef enum {
+    STATE_CONFIG,
+    STATE_COLLECT,
+    STATE_ALERT,
+} State_t;
+
 int main(void) {
 
 	stdio_init_all();
 
-    Oximeter oximeter;
+    State_t state = STATE_COLLECT;
+    Oximeter* oximeter = new Oximeter();
+    Sensor* sensor_array[] = {
+        oximeter,
+    };
 
 	while (1) {
-        oximeter.Update();
+        for (Sensor* sensor : sensor_array) {
+            sensor->Update();
+        }
 
         Data_t data;
         data.type = SAMPLE_TYPE_SPO2;
-        if (oximeter.getData(&data)) {
+        if (oximeter->getData(&data)) {
             printf("SPO2: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.1f ", data.data[i]);
@@ -27,7 +39,7 @@ int main(void) {
         }
 
         data.type = SAMPLE_TYPE_HEART_RATE;
-        if (oximeter.getData(&data)) {
+        if (oximeter->getData(&data)) {
             printf("Heart Rate: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.1f ", data.data[i]);
@@ -38,7 +50,7 @@ int main(void) {
         }
 
         data.type = SAMPLE_TYPE_TEMPERATURE;
-        if (oximeter.getData(&data)) {
+        if (oximeter->getData(&data)) {
             printf("Temperature: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.1f ", data.data[i]);
