@@ -5,16 +5,13 @@
 
 #define MAX3010X_ADDRESS	0x57
 
-#define I2C_SPEED_STANDARD	100000
-#define I2C_SPEED_FAST		400000
-
 #define I2C_BUFFER_LENGTH	32
 
 #define I2C_DELAY        	50000
 
 class MAX3010X {
 	public:
-		MAX3010X(i2c_inst_t* i2c_type, uint8_t sdata , uint8_t sclk , uint32_t i2cSpeed = I2C_SPEED_STANDARD, uint8_t i2cAddr = MAX3010X_ADDRESS);
+		MAX3010X(i2c_inst_t* i2c_type, uint8_t sdata , uint8_t sclk , uint32_t i2cSpeed, uint8_t i2cAddr = MAX3010X_ADDRESS);
 		bool begin();
 
 		uint32_t getRed(void); // Returns immediate red value

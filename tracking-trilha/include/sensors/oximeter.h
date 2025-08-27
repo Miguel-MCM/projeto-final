@@ -10,10 +10,6 @@
 #define MAX3010X_ADDRESS	0x57
 #define BUFFER_SIZE_ALGORITHM 100  // only for algorithm_by_RF.h
 
-#define PIN_WIRE_SDA 2
-#define PIN_WIRE_SCL 3
-#define I2C_PORT i2c1
-
 class Oximeter : public Sensor {
   public:
     Oximeter();
