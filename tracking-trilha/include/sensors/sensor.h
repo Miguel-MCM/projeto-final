@@ -19,12 +19,17 @@ typedef enum sample_t {
     SAMPLE_TYPE_ACCEL_X,
     SAMPLE_TYPE_ACCEL_Y,
     SAMPLE_TYPE_ACCEL_Z,
+    SAMPLE_TYPE_LATITUDE,
+    SAMPLE_TYPE_LONGITUDE,
+    SAMPLE_TYPE_ALTITUDE,
+    SAMPLE_TYPE_SATELLITES,
+    SAMPLE_TYPE_SPEED_KPH,
     SAMPLE_TYPE_QTT
 } sample_t;
 
 
 typedef struct {
-    uint64_t timestamp;
+    uint32_t timestamp;
     float *data;
     size_t size;
     sample_t type;

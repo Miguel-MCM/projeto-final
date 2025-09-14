@@ -3,6 +3,7 @@
 #include "hardware/i2c.h"
 #include "oximeter.h"
 #include "accelerometer.h"
+#include "gps.h"
 
 #define TICK_PERIOD_MS 1000 // ms
 
@@ -19,9 +20,11 @@ int main(void) {
     State_t state = STATE_COLLECT;
     Oximeter* oximeter = new Oximeter();
     Accelerometer* accelerometer = new Accelerometer();
+    GPS* gps = new GPS();
     Sensor* sensor_array[] = {
         oximeter,
         accelerometer,
+        gps
     };
 
 	while (1) {
@@ -64,7 +67,7 @@ int main(void) {
         }
 
         data.type = SAMPLE_TYPE_ACCEL_X;
-        if (accelerometer.getData(&data)) {
+        if (accelerometer->getData(&data)) {
             printf("Accel X: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.3f g", data.data[i]);
@@ -75,7 +78,7 @@ int main(void) {
         }
 
         data.type = SAMPLE_TYPE_ACCEL_Y;
-        if (accelerometer.getData(&data)) {
+        if (accelerometer->getData(&data)) {
             printf("Accel Y: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.3f g", data.data[i]);
@@ -86,7 +89,7 @@ int main(void) {
         }
 
         data.type = SAMPLE_TYPE_ACCEL_Z;
-        if (accelerometer.getData(&data)) {
+        if (accelerometer->getData(&data)) {
             printf("Accel Z: ");
             for (size_t i = 0; i < data.size; i++) {
                 printf("%.3f g", data.data[i]);
@@ -94,6 +97,61 @@ int main(void) {
             printf("\n");
         } else {
             printf("No Accel Z data available.\n");
+        }
+
+        data.type = SAMPLE_TYPE_LATITUDE;
+        if (gps->getData(&data)) {
+            printf("Latitude: ");
+            for (size_t i = 0; i < data.size; i++) {
+                printf("%.6f", data.data[i]);
+            }
+            printf("\n");
+        } else {
+            printf("No Latitude data available.\n");
+        }
+
+        data.type = SAMPLE_TYPE_LONGITUDE;
+        if (gps->getData(&data)) {
+            printf("Longitude: ");
+            for (size_t i = 0; i < data.size; i++) {
+                printf("%.6f", data.data[i]);
+            }
+            printf("\n");
+        } else {
+            printf("No Longitude data available.\n");
+        }
+
+        data.type = SAMPLE_TYPE_ALTITUDE;
+        if (gps->getData(&data)) {
+            printf("Altitude: ");
+            for (size_t i = 0; i < data.size; i++) {
+                printf("%.2f m", data.data[i]);
+            }
+            printf("\n");
+        } else {
+            printf("No Altitude data available.\n");
+        }
+
+        data.type = SAMPLE_TYPE_SATELLITES;
+        if (gps->getData(&data)) {
+            printf("Satellites: ");
+            for (size_t i = 0; i < data.size; i++) {
+                printf("%d", (int)data.data[i]);
+            }
+            printf("\n");
+        } else {
+            printf("No Satellites data available.\n");
+        }
+
+        data.type = SAMPLE_TYPE_SPEED_KPH;
+        if (gps->getData(&data)) {
+            printf("Speed: ");
+            for (size_t i = 0; i < data.size; i++) {
+                printf("%.2f kph", data.data[i]);
+            }
+            printf("\n");
+        } else {
+            printf("No Speed data available.\n");
         }
 
         sleep_ms(TICK_PERIOD_MS);

@@ -39,8 +39,10 @@ add_executable(tracking-trilha main.cpp
     src/drivers/oximeter/MAX3010X.cpp
     src/drivers/oximeter/algorithm_by_RF.cpp
     src/drivers/accelerometer/imu6050.cpp
+    src/drivers/gps/GPS_GY-NEO6MV2.cpp
     src/sensors/oximeter.cpp
     src/sensors/accelerometer.cpp
+    src/sensors/gps.cpp
     src/utils/utils.cpp
 )
 
@@ -62,6 +64,7 @@ target_include_directories(tracking-trilha PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/include/drivers
         ${CMAKE_CURRENT_LIST_DIR}/include/drivers/oximeter
         ${CMAKE_CURRENT_LIST_DIR}/include/drivers/accelerometer
+        ${CMAKE_CURRENT_LIST_DIR}/include/drivers/gps
         ${CMAKE_CURRENT_LIST_DIR}/include/sensors
         ${CMAKE_CURRENT_LIST_DIR}/include/utils
 )
@@ -69,7 +72,7 @@ target_include_directories(tracking-trilha PRIVATE
 # Add any user requested libraries 
 target_link_libraries(tracking-trilha 
         hardware_i2c
-        
+        hardware_uart
         )
 
 pico_add_extra_outputs(tracking-trilha)
